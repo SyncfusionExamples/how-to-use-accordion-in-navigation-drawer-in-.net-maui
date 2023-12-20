@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AccordionMaui"
+             xmlns:accordion="clr-namespace:Syncfusion.Maui.Accordion;assembly=Syncfusion.Maui.Expander"
+             xmlns:navigationdrawer="clr-namespace:Syncfusion.Maui.NavigationDrawer;assembly=Syncfusion.Maui.NavigationDrawer"
+             x:Class="AccordionMaui.MainPage">
+    
+    <ContentPage.BindingContext>
+        <local:ItemInfoRepository/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <navigationdrawer:SfNavigationDrawer x:Name="navigationDrawer">
+            
+            <navigationdrawer:SfNavigationDrawer.ContentView>
+                <Grid x:Name="mainContentView" BackgroundColor="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid BackgroundColor="#e8e8e8" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image x:Name="hamburgerButton" Source="hamburger.png" HeightRequest="30" WidthRequest="30" Margin="5,0,0,0" HorizontalOptions="Start">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ToggleDrawerCommand}" CommandParameter="{x:Reference navigationDrawer}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label x:Name="headerLabel" Grid.Column="1" HeightRequest="50" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Text="Home" FontSize="16" TextColor="#385170" />
+                    </Grid>
+                    <Label Grid.Row="1" x:Name="contentLabel" VerticalOptions="Center" HorizontalOptions="Center" Text="Content View" FontSize="14"/>
+                </Grid>
+            </navigationdrawer:SfNavigationDrawer.ContentView>
+            
+            <navigationdrawer:SfNavigationDrawer.DrawerSettings>
+                <navigationdrawer:DrawerSettings DrawerHeaderHeight="160" DrawerFooterHeight="0">
+                    
+                    <navigationdrawer:DrawerSettings.DrawerHeaderView>
+                        <Grid BackgroundColor="Black">
+                            <Image Source="burger.jpg" HeightRequest="110" Margin="0,10,0,0" VerticalOptions="Center" HorizontalOptions="Center" />
+                        </Grid>
+                    </navigationdrawer:DrawerSettings.DrawerHeaderView>
+                    
+                    <navigationdrawer:DrawerSettings.DrawerContentView>
+                        <Grid BackgroundColor="#323f4c">                          
+                                <accordion:SfAccordion x:Name="accordion"  BindableLayout.ItemsSource="{Binding Info}"  ExpandMode="SingleOrNone" HeaderIconPosition="End">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <accordion:AccordionItem HeaderBackground="#1f2933" HeaderIconColor="#cbd2d9">
+                                                <accordion:AccordionItem.Header>
+                                                    <Grid>
+                                                        <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" HeightRequest="50" TextColor="#cbd2d9" Padding="5,0,0,0" VerticalTextAlignment="Center"/>
+                                                    </Grid>
+                                                </accordion:AccordionItem.Header>
+                                                <accordion:AccordionItem.Content>
+                                                    <Grid Padding="5,0,5,0" BackgroundColor="#3e4c59">
+                                                        <Label Text="{Binding Description}" TextColor="#cbd2d9" VerticalOptions="Center"/>
+                                                    </Grid>
+                                                </accordion:AccordionItem.Content>
+                                            </accordion:AccordionItem>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </accordion:SfAccordion>                           
+                        </Grid>
+                    </navigationdrawer:DrawerSettings.DrawerContentView>
+                </navigationdrawer:DrawerSettings>               
+            </navigationdrawer:SfNavigationDrawer.DrawerSettings>                    
+        </navigationdrawer:SfNavigationDrawer>
+    </ContentPage.Content>
+
+</ContentPage>
